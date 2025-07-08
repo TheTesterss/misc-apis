@@ -7,18 +7,38 @@ export default {
     type: ApiTypes.GET,
     run: async (req: Request, res: Response) => {
         let pokemons: PokemonInterface[] = require('../../util/json/pokemons.json');
-        let { type } = req.query;
-        type = (type as string)?.toUpperCase();
+        let { type1, type2, gen } = req.query;
+        type1 = (type1 as string)?.toUpperCase();
+        type2 = (type2 as string)?.toUpperCase();
 
-        if (type && type.toUpperCase()) {
+        if (type1 && type1.toUpperCase()) {
             let found = pokemons.filter(
                 (pokemon: PokemonInterface) =>
-                    pokemon.types[0].fr === type ||
-                    pokemon.types[0].en === type ||
-                    pokemon.types[1]?.fr === type ||
-                    pokemon.types[1]?.en === type
+                    pokemon.types[0].fr === type1 ||
+                    pokemon.types[0].en === type1 ||
+                    pokemon.types[1]?.fr === type1 ||
+                    pokemon.types[1]?.en === type1
             );
             if (found.length > 0) pokemons = found;
+        }
+
+        if (type2 && type2.toUpperCase()) {
+            let found = pokemons.filter(
+                (pokemon: PokemonInterface) =>
+                    pokemon.types[0].fr === type2 ||
+                    pokemon.types[0].en === type2 ||
+                    pokemon.types[1]?.fr === type2 ||
+                    pokemon.types[1]?.en === type2
+            );
+            if (found.length > 0) pokemons = found;
+        }
+
+        if(gen) {
+            let found = pokemons.filter(
+                (pokemon: PokemonInterface) =>
+                    generationalizePokemon(pokemon) === gen
+            )
+            if(found.length > 0) pokemons = found;
         }
 
         try {
@@ -40,3 +60,29 @@ export default {
         }
     }
 } as ApiInterface;
+
+function generationalizePokemon(pokemon: PokemonInterface): string {
+    const index = Number(pokemon.index);
+
+    if (index >= 1 && index <= 151) {
+        return "1";
+    } else if (index >= 152 && index <= 251) {
+        return "2";
+    } else if (index >= 252 && index <= 386) {
+        return "3";
+    } else if (index >= 387 && index <= 493) {
+        return "4";
+    } else if (index >= 494 && index <= 649) {
+        return "5";
+    } else if (index >= 650 && index <= 721) {
+        return "6";
+    } else if (index >= 722 && index <= 809) {
+        return "7";
+    } else if (index >= 810 && index <= 898) {
+        return "8";
+    } else if (index >= 899 && index <= 1025) {
+        return "9";
+    } else {
+        return "0";
+    }
+}
