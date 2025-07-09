@@ -22,7 +22,7 @@ export default {
             if (found.length > 0) pokemons = found;
         }
 
-        if (type2 && type2.toUpperCase()) {
+        if (type2 && type2.toUpperCase() && type2 !== "NONE") {
             let found = pokemons.filter(
                 (pokemon: PokemonInterface) =>
                     pokemon.types[0].fr === type2 ||
@@ -31,6 +31,12 @@ export default {
                     pokemon.types[1]?.en === type2
             );
             if (found.length > 0) pokemons = found;
+        } else if(type2 && type2.toUpperCase() && type2 === "NONE") {
+            let found = pokemons.filter(
+                (pokemon: PokemonInterface) => 
+                    pokemon.types.length === 1
+            )
+            if(found.length > 0) pokemons = found;
         }
 
         if(gen) {
