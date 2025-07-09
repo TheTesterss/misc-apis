@@ -6,7 +6,7 @@ export default {
     path: '/pokemons/:pokemon',
     type: ApiTypes.GET,
     run: async (req: Request, res: Response) => {
-        const pokemons: PokemonInterface[] = require('../../util/json/pokemons.json');
+        const pokemons: PokemonInterface[] = require('../../../json/pokemons.json');
         let { pokemon } = req.params;
         pokemon = pokemon.toLowerCase();
 
