@@ -6,7 +6,7 @@ new Apis({
     port: 8080,
     messages: [
         {
-            ListenersMessage: 'Apis are successfully connected to Discord.',
+            ListenersMessage: 'Apis are successfully connected.',
             initializatingFinished: 'The initialization of apis ended.',
             errorInitializating: 'An error occured while initializating.'
         }

@@ -89,23 +89,61 @@ export interface DiscordFormatedFlags {
 }
 
 export interface PokemonInterface {
-    names: PokemonNames;
-    types: PokemonTypes[];
-    img: string;
-    index: string;
-}
-
-export interface PokemonNames {
-    fr: string;
-    en: string;
-}
-
-export interface PokemonTypes {
-    fr: string;
-    en: string;
+    name: string;
+    namefr: string;
+    type1: string;
+    type1fr: string;
+    'type2/none': string | null;
+    'type2fr/none': string | null;
+    generation: number;
+    index: number;
+    description: string;
+    descriptionfr: string;
+    'image(link)': string;
+    hasMegaEvolution: boolean;
+    'weight(in kg)': number | null;
+    legendary: boolean;
+    fabulous: boolean;
+    'size(in meter)': number | null;
+    'biomes(where we can found it)': string | null;
+    'evolution-stade': number | null;
+    color: string;
+    isMaxEvolution: boolean;
+    hasBeenInAshTeam: boolean;
+    hasGenderDifference: boolean;
+    isFormSwitchable: boolean;
+    baseHappiness: number | null;
+    captureRate: number | null;
 }
 
 export interface MovieInterface {
+    index: number;
+    budget: number;
+    genres: string;
+    homepage: string | null;
+    id: number;
+    keywords: string;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    production_companies: string;
+    production_countries: string;
+    release_date: string;
+    revenue: number;
+    runtime: number | null;
+    spoken_languages: string;
+    status: string;
+    tagline: string | null;
+    title: string;
+    vote_average: number;
+    vote_count: number;
+    cast: string;
+    crew: string;
+    director: string | null;
+}
+
+export interface LegacyMovieInterface {
     id: string;
     cast: CastInterface[];
     crew: CrewInterface[];

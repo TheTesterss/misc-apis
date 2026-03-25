@@ -18,6 +18,7 @@ export default class Apis extends EventEmitter {
         this.port = port;
         this.messages = messages;
         this.subConfigs = subConfigs;
+        this.app.use(express.json());
     }
 
     async set(config: ApisSubConfigType): Promise<void> {
@@ -34,7 +35,7 @@ export default class Apis extends EventEmitter {
     }
 
     async trackFolder(): Promise<void> {
-        //? Track A folder and the folders in this one while there's no folder remaining.
+        //? Track a folder and the folders in this one while there's no folder remaining.
         const processItems = async (items: string[], directory: string): Promise<void> => {
             for (const item of items) {
                 const filePath = path.join(directory, item);

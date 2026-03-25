@@ -2,12 +2,14 @@ import { Request, Response } from 'express';
 import { ApiCodes, ApiTypes } from '../../enums/enums';
 import { ApiInterface, MovieInterface } from '../../enums/Interfaces';
 import { findClosestMovie } from '../../util/findClosestMovie';
+import { loadMovies } from '../../util/loadCsvDatasets';
+import { sanitizeMovie } from '../../util/sanitizeMovie';
 
 export default {
     path: '/movies/:movie',
     type: ApiTypes.GET,
     run: async (req: Request, res: Response) => {
-        const movies: MovieInterface[] = require('../../util/json/movies.json');
+        const movies: MovieInterface[] = loadMovies();
         let { movie } = req.params;
         movie = movie.toLowerCase();
 
@@ -26,7 +28,7 @@ export default {
         try {
             return res.status(ApiCodes.SUCCESS).send({
                 status: ApiCodes.SUCCESS,
-                datas: closest,
+                datas: sanitizeMovie(closest),
                 message: 'Success.'
             });
         } catch (error) {

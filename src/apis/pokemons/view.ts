@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import { ApiCodes, ApiTypes } from '../../enums/enums';
 import { ApiInterface, PokemonInterface } from '../../enums/Interfaces';
+import { loadPokemons } from '../../util/loadCsvDatasets';
 
 export default {
     path: '/pokemons/:pokemon',
     type: ApiTypes.GET,
     run: async (req: Request, res: Response) => {
-        const pokemons: PokemonInterface[] = require('../../../json/pokemons.json');
+        const pokemons: PokemonInterface[] = loadPokemons();
         let { pokemon } = req.params;
         pokemon = pokemon.toLowerCase();
 
@@ -15,7 +16,7 @@ export default {
             (pokemon &&
                 !pokemons.some(
                     (poke: PokemonInterface) =>
-                        poke.names.fr.toLowerCase() === pokemon || poke.names.en.toLowerCase() === pokemon
+                        poke.namefr.toLowerCase() === pokemon || poke.name.toLowerCase() === pokemon
                 ))
         ) {
             return res.status(ApiCodes.BAD_REQUEST).send({
@@ -31,7 +32,7 @@ export default {
                 status: ApiCodes.SUCCESS,
                 datas: pokemons.find(
                     (poke: PokemonInterface) =>
-                        poke.names.fr.toLowerCase() === pokemon || poke.names.en.toLowerCase() === pokemon
+                        poke.namefr.toLowerCase() === pokemon || poke.name.toLowerCase() === pokemon
                 ),
                 message: 'Success.'
             });
