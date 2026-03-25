@@ -3,5 +3,4 @@ vscode/
 dist/
 yarn.lock
 .env
-csv/
 package-lock.json
